@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siiyar's Site</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="welcomeScreen">
+        <h1 class="text-5xl font-extrabold mb-4 text-white">siiyar's bio</h1>
+        <p class="text-xl text-gray-400 mb-8">feel free to enter...</p>
+        <button id="enterButton">ENTER</button>
+    </div>
+    <div id="mainContent">
+        <div class="holographic-card">
+            <h2 class="text-3xl font-bold text-[#00ffff] mb-1">siiyar</h2>
+            <p class="text-lg text-gray-200">17, love seals :p</p>
+            <p class="text-sm text-gray-400 mt-2">dc: @siiyar</p>
+        </div>
+
+        <div id="audioControls">
+            <div id="songName" class="text-center">Initializing Player...</div>
+            
+            <div class="w-full text-xs text-gray-500 flex justify-between">
+                <span id="currentTime">0:00</span>
+                <span id="duration">0:00</span>
+            </div>
+            <input type="range" id="progressSlider" min="0" max="100" value="0" step="0.1">
+
+            <div class="control-buttons">
+                <button id="prevButton" class="player-button">Previous</button>
+                <button id="playPauseButton" class="player-button">Play</button>
+                <button id="nextButton" class="player-button">Next</button>
+            </div>
+
+            <div class="flex items-center w-full mt-4">
+                <span class="mr-2 text-sm text-gray-400">Vol:</span>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5" class="w-2/3">
+            </div>
+
+            <audio id="backgroundAudio" loop></audio>
+        </div>
+        
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            const enterButton = document.getElementById('enterButton');
+            const mainContent = document.getElementById('mainContent');
+            const audio = document.getElementById('backgroundAudio');
+            const songNameDisplay = document.getElementById('songName');
+            const playPauseButton = document.getElementById('playPauseButton');
+            const nextButton = document.getElementById('nextButton');
+            const prevButton = document.getElementById('prevButton');
+            const volumeSlider = document.getElementById('volumeSlider');
+            const progressSlider = document.getElementById('progressSlider');
+            const currentTimeEl = document.getElementById('currentTime');
+            const durationEl = document.getElementById('duration');
+
+            // --- Playlist Configuration ---
+            const playlist = [
+                { src: "./audio/song1.mp3", name: "Apocalyptica - 'Bittersweet'" },
+                { src: "./audio/song2.mp3", name: "Red - Break Me Down" },
+                { src: "./audio/song3.mp3", name: "VIOLENT VIRA - Burn Me With A Bible" }
+            ];
+
+            let currentSongIndex = 0;
+            let isPlaying = false;
+
+
+            function formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = Math.floor(seconds % 60);
+                return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+            }
+
+
+            function loadSong(index) {
+                currentSongIndex = index;
+                const song = playlist[currentSongIndex];
+                
+                try {
+                    audio.src = song.src;
+                    songNameDisplay.textContent = song.name;
+                    audio.load();
+                    
+                    progressSlider.value = 0; 
+                    currentTimeEl.textContent = "0:00";
+                    durationEl.textContent = "0:00";
+                } catch (e) {
+                    console.error("Error loading audio source:", e);
+                    songNameDisplay.textContent = "ERROR: Song file missing! Check 'audio/' folder.";
+                    playPauseButton.disabled = true;
+                    nextButton.disabled = true;
+                    prevButton.disabled = true;
+                    isPlaying = false;
+                }
+            }
+
+            function playSong() {
+                if (!audio.src || audio.src === window.location.href) {
+                    loadSong(0); 
+                }
+                
+                if (!audio.src || songNameDisplay.textContent.startsWith("ERROR")) {
+                    console.log("Cannot play: Audio source is not valid.");
+                    return;
+                }
+
+                audio.play()
+                    .then(() => {
+                        isPlaying = true;
+                        playPauseButton.textContent = 'Pause';
+                    })
+                    .catch(error => {
+                        console.error("Autoplay blocked. User action is required.", error);
+                        playPauseButton.textContent = 'Play';
+                        isPlaying = false;
+                    });
+            }
+
+            function pauseSong() {
+                audio.pause();
+                isPlaying = false;
+                playPauseButton.textContent = 'Play';
+            }
+            
+            function nextSong() {
+                currentSongIndex = (currentSongIndex + 1) % playlist.length;
+                loadSong(currentSongIndex);
+                playSong();
+            }
+
+            function prevSong() {
+                currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+                loadSong(currentSongIndex);
+                playSong();
+            }
+
+
+
+            playPauseButton.addEventListener('click', () => {
+                if (playPauseButton.disabled) return; 
+
+                if (isPlaying) {
+                    pauseSong();
+                } else {
+                    playSong();
+                }
+            });
+
+            nextButton.addEventListener('click', nextSong);
+            prevButton.addEventListener('click', prevSong);
+            
+            audio.addEventListener('ended', nextSong); 
+
+            audio.addEventListener('error', (e) => {
+                console.error("Failed to load audio file:", e.target.error.code, e.target.error.message);
+                songNameDisplay.textContent = "ERROR: Song file missing! Check 'audio/' folder.";
+                playPauseButton.disabled = true;
+                nextButton.disabled = true;
+                prevButton.disabled = true;
+                isPlaying = false;
+            });
+
+
+            volumeSlider.addEventListener('input', (e) => {
+                audio.volume = e.target.value;
+            });
+
+            audio.addEventListener('loadedmetadata', () => {
+                progressSlider.max = audio.duration;
+                durationEl.textContent = formatTime(audio.duration);
+            });
+
+            audio.addEventListener('timeupdate', () => {
+                if (!progressSlider.isSeeking) {
+                    progressSlider.value = audio.currentTime;
+                    currentTimeEl.textContent = formatTime(audio.currentTime);
+                }
+            });
+            
+            progressSlider.addEventListener('input', () => {
+                audio.currentTime = progressSlider.value;
+            });
+
+
+            enterButton.addEventListener('click', () => {
+                welcomeScreen.classList.add('hidden');
+                mainContent.classList.add('unblurred');
+
+                loadSong(currentSongIndex);
+                if (!playPauseButton.disabled) { 
+                    playSong();
+                }
+            });
+            
+            audio.volume = volumeSlider.value; 
+            loadSong(currentSongIndex);
+        });
+    </script>
+</body>
+</html>
