@@ -1,0 +1,94 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>siyar card</title>
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+
+<div id="welcomeScreen">
+        <div class="welcome-content">
+            <h1>Welcome to Siiyar's Page</h1>
+            <p>Click anywhere to enter</p>
+            <button id="enterButton">Enter</button>
+        </div>
+</div>
+
+
+
+
+
+<div class="holographic-container">
+    <div class="holographic-card">
+      <h2>siiyar</h2>
+      <p>17, love seals :p</p>
+      <p>dc: @siiyar</p>
+    </div>
+</div>
+
+<div id="audioControls">
+    <div id="audioSongName"><font color="gray"> Song Name </font></div>
+    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.05">
+    <button id="skipButton">Skip</button>
+</div>
+<audio id="backgroundAudio" loop></audio>
+
+    <script>            // Audio playlist
+      let audio=document.getElementById("backgroundAudio");
+      let songName=document.getElementById("audioSongName");
+      let slider=document.getElementById("volumeSlider");
+      let skipButton=document.getElementById("skipButton");
+      slider.addEventListener("input",()=>{audio.volume=slider.value});
+      audio.volume=0.05;
+      const playlist=[
+          {src:"./audio/song1.mp3",name:"Lil Peep - Falling 4 Me"},
+          {src:"./audio/song2.mp3",name:"Lil Peep - Selfish"},
+          {src:"./audio/song3.mp3",name:"Doktorspiele - Nightcore"},
+          {src:"./audio/song4.mp3",name:"Juice Wrld - Late Night Drives"},
+          {src:"./audio/song5.mp3",name:"Baby Jane - Nightterrors (Sped Up)"},
+          {src:"./audio/song6.mp3",name:"Erika - I Don't Know"},
+          {src:"./audio/song7.mp3",name:"Motionless In White - Another Life"},
+          {src:"./audio/song8.mp3",name:"Pierce the Veil - Caraphernelia"},
+          {src:"./audio/song9.mp3",name:"Canova95 - Beztebya Amnevsemalo"},
+          { src: "./audio/song10.mp3", name: "Your Love Is My Drug 8 Bit" },
+          { src: "./audio/song11.mp3", name: "Lil Peep - Absolute in doubt (OG Version)" },
+          { src: "./audio/song12.mp3", name: "Pierce the Veil - Circles" },
+          { src: "./audio/song13.mp3", name: "Otuka - Skin" },
+          { src: "./audio/song14.mp3", name: "Amotti - Bleed" },
+          { src: "./audio/song15.mp3", name: "Rebzyyx - all i want is you" },
+          { src: "./audio/song16.mp3", name: "Chevelle - Send The Pain Below" },
+          { src: "./audio/song17.mp3", name: "HAZY MOON JUMPSTYLE" },
+          { src: "./audio/song18.mp3", name: "Lil Peep - Love Letter" },
+          { src: "./audio/song19.mp3", name: "Akira Yamaoka - I Want Love" },
+          { src: "./audio/song20.mp3", name: "Chief Keef - Hate Bein' Sober" },
+          { src: "./audio/song21.mp3", name: "Breaking Benjamin - The Diary Of Jane" },
+          { src: "./audio/song22.mp3", name: "Her Words Kill - Sir This Is A Cutthroat Fashion" },
+          { src: "./audio/song22.mp3", name: "Her Words Kill - Sir This Is A Cutthroat Fashion" },
+      ];
+      let lastSongIndex=-1;
+      function playRandomSong(){
+          let songIndex;
+          do{songIndex=Math.floor(Math.random()*playlist.length);}while(songIndex===lastSongIndex && playlist.length>1);
+          lastSongIndex=songIndex;
+          let song=playlist[songIndex];
+          audio.src=song.src;
+          songName.textContent=song.name;
+          audio.play();
+      }
+      skipButton.addEventListener("click",playRandomSong);
+
+    </script>
+
+
+
+
+
+
+
+
+    
+</body>
+</html>
