@@ -11,14 +11,29 @@
 
     <div id="welcomeScreen">
         <h1 class="text-5xl font-extrabold mb-4 text-white">siiyar's bio</h1>
-        <p class="text-xl text-gray-400 mb-8">feel free to enter...</p>
-        <button id="enterButton">ENTER</button>
+        <p class="text-xl text-gray-400 mb-8">press anywhere to enter..</p>
     </div>
+
+
     <div id="mainContent">
         <div class="holographic-card">
+            <img src="https://cdn.discordapp.com/avatars/853369490510053396/090b53d5319906827dcb97988f05ca0b.webp?size=1024" alt="Profile Picture" class="profile-picture">
             <h2 class="text-3xl font-bold text-[#00ffff] mb-1">siiyar</h2>
             <p class="text-lg text-gray-200">17, love seals :p</p>
-            <p class="text-sm text-gray-400 mt-2">dc: @siiyar</p>
+            <div class="social-links">
+                <!-- Links-->
+                <a href="https://steamcommunity.com/id/siiyar/" target="_blank" class="social-link" title="Steam Profile">
+                    <img src="./icons/steam.png" alt="Steam Icon">
+                </a>
+                
+                <a href="https://www.roblox.com/users/795030163/profile" target="_blank" class="social-link" title="Roblox Profile">
+                    <img src="./icons/roblox.png" alt="Roblox Icon">
+                </a>
+
+                <a href="https://music.youtube.com/playlist?list=PLbfRy3cHw1fe1E4rgMmYYQY1YShaRSzcl&si=BL-jLyxfbEu67PwX" target="_blank" class="social-link" title="Music Playlist">
+                    <img src="./icons/music.png" alt="Music Icon">
+                </a>
+            </div>
         </div>
 
         <div id="audioControls">
@@ -188,7 +203,7 @@
             });
 
 
-            enterButton.addEventListener('click', () => {
+            welcomeScreen.addEventListener('click', () => {
                 welcomeScreen.classList.add('hidden');
                 mainContent.classList.add('unblurred');
 
