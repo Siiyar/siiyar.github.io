@@ -30,7 +30,7 @@
             border-radius: 50%; 
             object-fit: cover;
             margin: 0 auto 15px auto; 
-            border: 3px solid #00ffff;
+            border: 2px solid #00ffff;
             box-shadow: 0 0 10px #00ffff; 
         }
 
@@ -180,3 +180,4 @@
             color: #00ffff;
             box-shadow: 0 0 15px #00ffff;
         }
+
