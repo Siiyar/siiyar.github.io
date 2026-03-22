@@ -20,11 +20,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Playlist Configuration
     const playlist = [
-        { src: "./audio/song1.mp3", name: "Scissor Sisters - It Can't Come Quickly Enough" },
-        { src: "./audio/song2.mp3", name: "Old Gods of Asgard - Dark Ocean Summoning" },
-        { src: "./audio/song3.mp3", name: "Adrienne Cowan - Cover: 'Forever' by Kamelot" },
-        { src: "./audio/song4.mp3", name: "VIOLENT VIRA - Eat" },
-        { src: "./audio/song5.mp3", name: "Rammstein - Ohne dich" }
+        { src: "./audios/song1.mp3", name: "Scissor Sisters - It Can't Come Quickly Enough" },
+        { src: "./audios/song2.mp3", name: "Old Gods of Asgard - Dark Ocean Summoning" },
+        { src: "./audios/song3.mp3", name: "Adrienne Cowan - Cover: 'Forever' by Kamelot" },
+        { src: "./audios/song4.mp3", name: "VIOLENT VIRA - Eat" },
+        { src: "./audios/song5.mp3", name: "Rammstein - Ohne dich" }
     ];
 
     let currentSongIndex = 0;
