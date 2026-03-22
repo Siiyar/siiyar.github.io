@@ -1,5 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Elements
+document.addEventListener('DOMContentLoaded', function () {
     const welcomeScreen = document.getElementById('welcomeScreen');
     const mainContent = document.getElementById('mainContent');
     const audio = document.getElementById('backgroundAudio');
@@ -18,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const audioControls = document.getElementById('audioControls');
     const visualizerBars = document.querySelectorAll('.bar');
 
-    // Playlist Configuration
     const playlist = [
         { src: "./audio/song1.mp3", name: "Scissor Sisters - It Can't Come Quickly Enough" },
         { src: "./audio/song2.mp3", name: "Old Gods of Asgard - Dark Ocean Summoning" },
@@ -27,10 +25,14 @@ document.addEventListener('DOMContentLoaded', function() {
         { src: "./audio/song5.mp3", name: "Rammstein - Ohne dich" }
     ];
 
+    for (let i = playlist.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [playlist[i], playlist[j]] = [playlist[j], playlist[i]];
+    }
+
     let currentSongIndex = 0;
     let isPlaying = false;
 
-    // Create animated particles
     function createParticles() {
         const particlesContainer = document.getElementById('particles');
         const particleCount = 50;
@@ -46,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Mouse tracking for cursor glow
     let mouseX = 0;
     let mouseY = 0;
     let currentX = 0;
@@ -60,55 +61,16 @@ document.addEventListener('DOMContentLoaded', function() {
     function animateCursor() {
         const dx = mouseX - currentX;
         const dy = mouseY - currentY;
-        
+
         currentX += dx * 0.1;
         currentY += dy * 0.1;
-        
+
         cursorGlow.style.left = currentX + 'px';
         cursorGlow.style.top = currentY + 'px';
-        
+
         requestAnimationFrame(animateCursor);
     }
 
-    // Mouse tracking for floating cards with collision
-    function updateCardPositions(e) {
-        const cards = [profileCard, audioControls];
-        const mouseX = e.clientX;
-        const mouseY = e.clientY;
-
-        cards.forEach(card => {
-            const rect = card.getBoundingClientRect();
-            const cardCenterX = rect.left + rect.width / 2;
-            const cardCenterY = rect.top + rect.height / 2;
-
-            // Calculate distance from mouse to card center
-            const deltaX = mouseX - cardCenterX;
-            const deltaY = mouseY - cardCenterY;
-            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
-            // Influence radius
-            const influenceRadius = 250;
-
-            if (distance < influenceRadius) {
-                // Calculate movement (inverse of distance for repulsion)
-                const force = (influenceRadius - distance) / influenceRadius;
-                const moveX = -deltaX * force * 0.3;
-                const moveY = -deltaY * force * 0.3;
-
-                // Apply boundary constraints
-                const maxMove = 40;
-                const clampedX = Math.max(-maxMove, Math.min(maxMove, moveX));
-                const clampedY = Math.max(-maxMove, Math.min(maxMove, moveY));
-
-                card.style.transform = `translate(${clampedX}px, ${clampedY}px)`;
-            } else {
-                // Return to original position
-                card.style.transform = 'translate(0, 0)';
-            }
-        });
-    }
-
-    // Visualizer animation based on audio
     function animateVisualizer() {
         if (isPlaying) {
             visualizerBars.forEach(bar => {
@@ -121,7 +83,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Time formatting
     function formatTime(seconds) {
         if (!isFinite(seconds)) return "0:00";
         const minutes = Math.floor(seconds / 60);
@@ -129,16 +90,15 @@ document.addEventListener('DOMContentLoaded', function() {
         return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
     }
 
-    // Load song
     function loadSong(index) {
         currentSongIndex = index;
         const song = playlist[currentSongIndex];
-        
+
         try {
             audio.src = song.src;
             songNameDisplay.textContent = song.name;
             audio.load();
-            
+
             progressSlider.value = 0;
             currentTimeEl.textContent = "0:00";
             durationEl.textContent = "0:00";
@@ -152,12 +112,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Play song
     function playSong() {
         if (!audio.src || audio.src === window.location.href) {
             loadSong(0);
         }
-        
+
         if (!audio.src || songNameDisplay.textContent.startsWith("ERROR")) {
             return;
         }
@@ -177,7 +136,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
-    // Pause song
     function pauseSong() {
         audio.pause();
         isPlaying = false;
@@ -186,24 +144,21 @@ document.addEventListener('DOMContentLoaded', function() {
         animateVisualizer();
     }
 
-    // Next song
     function nextSong() {
         currentSongIndex = (currentSongIndex + 1) % playlist.length;
         loadSong(currentSongIndex);
         playSong();
     }
 
-    // Previous song
     function prevSong() {
         currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
         loadSong(currentSongIndex);
         playSong();
     }
 
-    // Event Listeners
     playPauseButton.addEventListener('click', () => {
         if (playPauseButton.disabled) return;
-        
+
         if (isPlaying) {
             pauseSong();
         } else {
@@ -245,24 +200,19 @@ document.addEventListener('DOMContentLoaded', function() {
         audio.currentTime = progressSlider.value;
     });
 
-    // Welcome screen click
     welcomeScreen.addEventListener('click', () => {
         welcomeScreen.classList.add('hidden');
         mainContent.classList.add('unblurred');
-        
+
         loadSong(currentSongIndex);
         if (!playPauseButton.disabled) {
             playSong();
         }
     });
 
-    // Mouse move listener for floating cards
-    document.addEventListener('mousemove', updateCardPositions);
-
-    // Keyboard controls
     document.addEventListener('keydown', (e) => {
         if (welcomeScreen.classList.contains('hidden')) {
-            switch(e.key) {
+            switch (e.key) {
                 case ' ':
                     e.preventDefault();
                     if (isPlaying) {
@@ -283,7 +233,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Initialize
     createParticles();
     animateCursor();
     audio.volume = volumeSlider.value;
