@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>siiyar the seal</title>
+    <link rel="icon" href="icons/icon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="particles-container" id="particles"></div>
+
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+
+    <div id="welcomeScreen">
+        <div class="welcome-content" style="display:flex; flex-direction:column; align-items:center; gap:24px;">
+            <span
+                style="font-size:0.9rem; font-weight:600; color:#666; letter-spacing:3px; text-transform:uppercase; animation:pulse 2s ease-in-out infinite;">click
+                to enter</span>
+            <div style="
+                width:90px; height:90px; border-radius:50%;
+                background:rgba(15,15,30,0.7); backdrop-filter:blur(20px);
+                border:2px solid rgba(0,255,255,0.5);
+                box-shadow:0 0 30px rgba(0,255,255,0.3),0 0 60px rgba(0,255,255,0.1);
+                color:#00ffff; cursor:pointer;
+                display:flex; align-items:center; justify-content:center;
+                animation:breathe 3s ease-in-out infinite;
+                transition:all 0.3s ease;
+            ">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                    style="width:36px;height:36px;margin-left:4px;">
+                    <path d="M8 5v14l11-7z" />
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        #homeButton {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            width: fit-content;
+            padding: 10px 20px;
+            backdrop-filter: blur(20px);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            background: rgba(15, 15, 30, 0.7);
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            color: #00ffff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        #homeButton:hover {
+            transform: translateY(-2px) scale(1.05);
+            border-color: #00ffff;
+            background: rgba(0, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        #welcomeScreen.hidden~#homeButton {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        @media (max-width: 768px) {
+            #homeButton {
+                top: 20px;
+                left: 20px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+
+    <a href="index.html" id="homeButton" class="social-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+            style="width: 18px; height: 18px;">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+        </svg>
+        <span>Homepage</span>
+    </a>
+
+    <div id="mainContent">
+        <div class="holographic-card floating-card compact-profile" id="profileCard">
+            <div class="profile-header">
+                <img src="icons/siyar.png" alt="Profile Picture" class="profile-picture">
+                <div class="profile-info">
+                    <h2 class="profile-name">siiyar</h2>
+                    <p class="profile-bio">17, love seals :p</p>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <a href="https://steamcommunity.com/id/siiyar/" target="_blank" class="social-link"
+                    title="Steam Profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                    </svg>
+                    <span>Steam</span>
+                </a>
+
+                <a href="https://www.roblox.com/users/795030163/profile" target="_blank" class="social-link"
+                    title="Roblox Profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 6v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V6l-10-4z" />
+                    </svg>
+                    <span>Roblox</span>
+                </a>
+
+                <a href="https://music.youtube.com/playlist?list=PLbfRy3cHw1fe1E4rgMmYYQY1YShaRSzcl&si=BL-jLyxfbEu67PwX"
+                    target="_blank" class="social-link" title="Music Playlist">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+                    </svg>
+                    <span>Playlist</span>
+                </a>
+            </div>
+        </div>
+
+        <div id="audioControls" class="floating-card compact-audio">
+            <div class="audio-top-row">
+                <button id="playPauseButton" class="player-button play-button" title="Play">
+                    <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                    <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                        style="display: none;">
+                        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                    </svg>
+                </button>
+                <div class="song-info">
+                    <div id="songName">Initializing Player...</div>
+                </div>
+            </div>
+
+            <div class="audio-bottom-row">
+                <button id="prevButton" class="player-button mini-btn" title="Previous">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
+                    </svg>
+                </button>
+                <span id="currentTime">0:00</span>
+                <div class="progress-container">
+                    <input type="range" id="progressSlider" min="0" max="100" value="0" step="0.1">
+                </div>
+                <span id="duration">0:00</span>
+                <button id="nextButton" class="player-button mini-btn" title="Next">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
+                    </svg>
+                </button>
+            </div>
+
+            <audio id="backgroundAudio"></audio>
+        </div>
+    </div>
+
+    <div class="volume-control page-volume">
+        <div class="visualizer volume-icon" id="volumeVisualizer">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <div class="volume-slider-wrapper">
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
