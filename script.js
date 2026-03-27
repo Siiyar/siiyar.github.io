@@ -200,18 +200,26 @@ document.addEventListener('DOMContentLoaded', function () {
         audio.currentTime = progressSlider.value;
     });
 
-    welcomeScreen.addEventListener('click', () => {
-        welcomeScreen.classList.add('hidden');
-        mainContent.classList.add('unblurred');
+    if (welcomeScreen) {
+        welcomeScreen.addEventListener('click', () => {
+            welcomeScreen.classList.add('hidden');
+            if (mainContent) mainContent.classList.add('unblurred');
 
+            loadSong(currentSongIndex);
+            if (!playPauseButton.disabled) {
+                playSong();
+            }
+        });
+    } else {
+        if (mainContent) mainContent.classList.add('unblurred');
         loadSong(currentSongIndex);
         if (!playPauseButton.disabled) {
             playSong();
         }
-    });
+    }
 
     document.addEventListener('keydown', (e) => {
-        if (welcomeScreen.classList.contains('hidden')) {
+        if (!welcomeScreen || welcomeScreen.classList.contains('hidden')) {
             switch (e.key) {
                 case ' ':
                     e.preventDefault();
