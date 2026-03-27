@@ -4,110 +4,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>siiyar the seal</title>
+    <title>siiyar - home</title>
     <link rel="icon" href="icons/icon.png">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .navbar {
+            animation: fadeInDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        #mainContent {
+            animation: popIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div class="particles-container" id="particles"></div>
-
     <div class="cursor-glow" id="cursorGlow"></div>
 
-
-    <div id="welcomeScreen">
-        <div class="welcome-content">
-            <h1 class="glitch-text" data-text="siiyar's bio">siiyar's bio</h1>
-            <p class="pulse-text">click anywhere to enter</p>
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="nav-logo">siiyar.</a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link active">Homepage</a>
+            <a href="projects.html" class="nav-link">Projects</a>
+            <a href="bio.html" class="nav-link">Bio</a>
+            <a href="https://github.com/siiyar" target="_blank" class="nav-link">GitHub</a>
         </div>
-    </div>
+    </nav>
 
-    <div id="mainContent">
-        <div class="holographic-card floating-card compact-profile" id="profileCard">
-            <div class="profile-header">
-                <img src="icons/siyar.png" alt="Profile Picture" class="profile-picture">
-                <div class="profile-info">
-                    <h2 class="profile-name">siiyar</h2>
-                    <p class="profile-bio">17, love seals :p</p>
-                </div>
+    <div id="mainContent" class="home-layout">
+        <section class="hero-section floating-card" id="heroSection">
+            <h1 class="hero-title glitch-text" data-text="hello, i'm siiyar.">hello, i'm siiyar.</h1>
+            <p class="hero-subtitle">i'm a 17-year-old dude who likes building interesting projects, and seals. welcome
+                to my personal space on the internet. :D</p>
+            <div class="hero-buttons">
+                <a href="bio.html" class="btn-primary">View Bio</a>
+                <a href="projects.html" class="btn-secondary">My Projects</a>
             </div>
+        </section>
 
-            <div class="social-links">
-                <a href="https://steamcommunity.com/id/siiyar/" target="_blank" class="social-link"
-                    title="Steam Profile">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
-                    </svg>
-                    <span>Steam</span>
-                </a>
-
-                <a href="https://www.roblox.com/users/795030163/profile" target="_blank" class="social-link"
-                    title="Roblox Profile">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2L2 6v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V6l-10-4z" />
-                    </svg>
-                    <span>Roblox</span>
-                </a>
-
-                <a href="https://music.youtube.com/playlist?list=PLbfRy3cHw1fe1E4rgMmYYQY1YShaRSzcl&si=BL-jLyxfbEu67PwX"
-                    target="_blank" class="social-link" title="Music Playlist">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
-                    </svg>
-                    <span>Playlist</span>
-                </a>
-            </div>
-        </div>
-
-        <div id="audioControls" class="floating-card compact-audio">
-            <div class="audio-top-row">
-                <button id="playPauseButton" class="player-button play-button" title="Play">
-                    <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M8 5v14l11-7z" />
-                    </svg>
-                    <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                        style="display: none;">
-                        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-                    </svg>
-                </button>
-                <div class="song-info">
-                    <div id="songName">Initializing Player...</div>
-                </div>
-            </div>
-
-            <div class="audio-bottom-row">
-                <button id="prevButton" class="player-button mini-btn" title="Previous">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
-                    </svg>
-                </button>
-                <span id="currentTime">0:00</span>
-                <div class="progress-container">
-                    <input type="range" id="progressSlider" min="0" max="100" value="0" step="0.1">
-                </div>
-                <span id="duration">0:00</span>
-                <button id="nextButton" class="player-button mini-btn" title="Next">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
-                    </svg>
-                </button>
-            </div>
-
+        <div id="audioControls" style="display:none;">
+            <button id="playPauseButton">
+                <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z" />
+                </svg>
+                <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                    style="display:none;">
+                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                </svg>
+            </button>
+            <div id="songName"></div>
+            <button id="prevButton"></button>
+            <span id="currentTime"></span>
+            <input type="range" id="progressSlider" min="0" max="100" value="0" step="0.1">
+            <span id="duration"></span>
+            <button id="nextButton"></button>
             <audio id="backgroundAudio"></audio>
         </div>
-    </div>
 
-    <div class="volume-control page-volume">
-        <div class="visualizer volume-icon" id="volumeVisualizer">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </div>
-        <div class="volume-slider-wrapper">
+        <div style="display:none;">
+            <div id="volumeVisualizer"></div>
             <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
         </div>
     </div>
