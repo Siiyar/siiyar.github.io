@@ -651,6 +651,201 @@ body {
     }
 }
 
+/* --- Homepage Layout Styles --- */
+
+.navbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(15, 15, 30, 0.4);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    z-index: 100;
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #00ffff;
+    text-decoration: none;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    letter-spacing: 1px;
+    transition: transform 0.3s ease;
+}
+
+.nav-logo:hover {
+    transform: scale(1.05);
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #00ffff;
+    background: rgba(0, 255, 255, 0.1);
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.home-layout {
+    max-width: 1200px !important;
+    padding: 100px 50px 50px 50px !important;
+    align-items: flex-start !important;
+}
+
+.hero-section {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px;
+    background: rgba(15, 15, 30, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 40px rgba(0, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    text-align: left;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(0, 255, 255, 0.05) 50%, transparent 70%);
+    animation: shimmer 10s infinite;
+    pointer-events: none;
+}
+
+.hero-title {
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: #00ffff;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    margin-bottom: 20px;
+    line-height: 1.1;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: #b0b0b0;
+    margin-bottom: 40px;
+    max-width: 700px;
+    line-height: 1.6;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.btn-primary {
+    padding: 15px 35px;
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid #00ffff;
+    border-radius: 12px;
+    color: #00ffff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+}
+
+.btn-primary:hover {
+    background: rgba(0, 255, 255, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 25px rgba(0, 255, 255, 0.4);
+}
+
+.btn-secondary {
+    padding: 15px 35px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    border-color: #ffffff;
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+#welcomeScreen:not(.hidden)~.navbar,
+#welcomeScreen:not(.hidden)~#mainContent .hero-section {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#welcomeScreen.hidden~.navbar {
+    animation: fadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+    will-change: transform, opacity;
+}
+
+#welcomeScreen.hidden~#mainContent .hero-section {
+    animation: popIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s backwards;
+    will-change: transform, opacity;
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .hero-section {
+        padding: 40px 20px;
+    }
+}
+
 html {
     scroll-behavior: smooth;
 }
